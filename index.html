@@ -1,0 +1,92 @@
+<html ng-app="resizer">
+<head>
+	<title>RSZR</title>
+
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.css">
+
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="bower_components/angularjs/angular.js"></script>
+	<script type="text/javascript" src="app/imageservice.js"></script>
+	<script type="text/javascript" src="app/comservice.js"></script>
+	<script type="text/javascript" src="app/app.js"></script>
+	<script type="text/javascript" src="app/toolkit.js"></script>
+	<script type="text/javascript" src="app/workbench.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-10" id="workbench" ng-controller="WorkBenchController as workbench">
+				<div id="workbench-working-area" style="position: relative; !important">
+					<img id="workbench-img" style="">
+					<div id="workbench-mask"></div>
+				</div>
+				
+			</div>
+			<div class="col-xs-2" id="toolkit" ng-controller="ToolkitController as toolkit">
+				<form novalidate>
+					<div class="form-group">
+						<label for="file">File</label>
+						<input type="file" name="file" id="file" class="form-control" onchange="angular.element(this).scope().toolkit.loadImage(this)">
+					</div>
+
+					<div class="form-group">
+						<label for="finalWidth">Width</label>
+						<input type="text" name="finalWidth" id="finalWidth" class="form-control" ng-model="toolkit.finalWidth" ng-change="toolkit.updateWidth()">
+					</div>
+
+					<div class="form-group">
+						<label for="finalHeight">Height</label>
+						<input type="text" name="finalHeight" id="finalHeight" class="form-control" ng-model="toolkit.finalHeight"  ng-change="toolkit.updateHeight()">
+					</div>
+					
+					<div class="form-group">
+						<label for="keepRatio">Keep Ratio</label>
+						<input type="checkbox" name="keepRatio" id="keepRatio" class="" ng-model="toolkit.keepRatio" ng-change="">
+					</div>
+
+					<div class="form-group">
+						<label for="cropWidth">Crop Width</label>
+						<input type="text" name="cropWidth" id="cropWidth" class="form-control" ng-model="toolkit.cropWidth"  ng-change="">
+					</div>
+
+					<div class="form-group">
+						<label for="cropHeight">Crop Height</label>
+						<input type="text" name="cropHeight" id="cropHeight" class="form-control" ng-model="toolkit.cropHeight"  ng-change="">
+					</div>
+
+					<div class="form-group">
+						<label for="cropX">Crop X</label>
+						<input type="text" name="cropX" id="cropX" class="form-control" ng-model="toolkit.cropX"  ng-change="">
+					</div>
+
+					<div class="form-group">
+						<label for="cropY">Crop Y</label>
+						<input type="text" name="cropY" id="cropY" class="form-control" ng-model="toolkit.cropY"  ng-change="">
+					</div>
+
+					<div class="form-group">
+						<input type="submit" ng-click="toolkit.go()" value="Go !">
+					</div>
+
+
+					<div class="form-group">
+
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- Affichage d'une erreur si imagesmagick n'est pas installé-->
+	<div id="error-imagesmagick" style="display:none">
+		<div id="error-imagesmagick-message">ImagesMagick is not installed on yourcomputer.<br/> You need to install it if you want this app to work !</div>
+	</div>
+</body>
+</html>

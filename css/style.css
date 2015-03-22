@@ -1,0 +1,49 @@
+
+
+
+
+
+div#workbench {
+	/*background-color: #faa;*/
+	height : 100%;
+}
+
+div#workbench div#workbench-working-area {
+	height : 100%;
+	width : 100%;
+	background: url("transp_bg.png");
+}
+
+div#workbench div#workbench-working-area div#workbench-mask{
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 1000;
+	position: absolute;
+	top : 0;
+	left: 0;
+	cursor : move;
+}
+
+
+
+
+
+div#error-imagesmagick {
+
+	position : absolute;
+	top : 0;
+	left : 0;
+	width : 100%;
+	height : 100%;
+	z-index: 1000;
+	background: rgba(0,0,0,0.3);
+}
+
+div#error-imagesmagick-message {
+
+	background: rgba(0,0,0,1);
+	color : #eee;
+	width : 30%;
+	margin : auto;
+	padding : 20px;
+	margin-top : 200px;
+}
