@@ -39,7 +39,6 @@ app.controller("ToolkitController", ['$rootScope', '$scope' , function($rootScop
 	this.loadImage = function(e){
 		var files = $(e)[0].files;
 		if (files.length === 0 ) return;
-		//console.log(angular.element(e).scope());
 
 		//getting image file infos :
 		var t = this;
@@ -52,10 +51,6 @@ app.controller("ToolkitController", ['$rootScope', '$scope' , function($rootScop
 	        t.cropWidth = file.width;
 			t.cropHeight = file.height;
 
-	        /*$('#finalWidth').val(t.finalWidth);
-	        $('#finalHeight').val(t.finalHeight);
-	        $('#cropWidth').val(t.finalWidth);
-	        $('#cropHeight').val(t.finalHeight);*/
 	        $rootScope.$broadcast("toolkit_imgload",{
 	    		path : file.path
 	    	});
@@ -75,6 +70,7 @@ app.controller("ToolkitController", ['$rootScope', '$scope' , function($rootScop
 		if(this.keepRatio) {
 			this.finalHeight = parseInt(this.file.height * this.finalWidth / this.file.width);
 		}
+		this.updateAllMask(false);
 		this.notifyUpdates();
 	};
 
@@ -83,20 +79,48 @@ app.controller("ToolkitController", ['$rootScope', '$scope' , function($rootScop
 		if(this.keepRatio) {
 			this.finalWidth = parseInt(this.file.width * this.finalHeight / this.file.height);
 		}
+		this.updateAllMask(false);
 		this.notifyUpdates();
 	};
 
-	this.updateCropX = function(){
-		this.notifyUpdates();
+	this.updateCropX = function(notify){
+		var cxMax = this.finalWidth - this.cropWidth;
+		if (this.cropX > cxMax) {
+			if (cxMax >= 0)	this.cropX = cxMax;
+			else this.cropX = 0;
+		}
+		if(notify !== false) this.notifyUpdates();
 	};
-	this.updateCropY = function(){
-		this.notifyUpdates();
+	this.updateCropY = function(notify){
+		var cyMax = this.finalHeight - this.cropHeight;
+		if (this.cropY > cyMax) {
+			if (cyMax >= 0) this.cropY = cyMax;
+			else this.cropY = 0;
+		};
+		if(notify !== false) this.notifyUpdates();
 	};
-	this.updateCropWidth = function(){
-		this.notifyUpdates();
+	this.updateCropWidth = function(notify){
+		var cwMax = this.finalWidth - this.cropX;
+		if( this.cropWidth > cwMax) {
+			if (cwMax >= 0) this.cropWidth = cwMax;
+			else this.cropWidth = 1;
+		};
+		if(notify !== false) this.notifyUpdates();
 	};
-	this.updateCropHeight = function(){
-		this.notifyUpdates();
+	this.updateCropHeight = function(notify){
+		var chMax = this.finalHeight - this.cropY;
+		if( this.cropHeight > chMax) {
+			if (chMax >= 0) this.cropHeight = chMax;
+			else this.cropHeight = 1;
+		};
+		if(notify !== false) this.notifyUpdates();
+	};
+
+	this.updateAllMask = function(notify) {
+		this.updateCropX(notify);
+		this.updateCropY(notify);
+		this.updateCropWidth(notify);
+		this.updateCropHeight(notify);
 	};
 
 	this.notifyUpdates = function(){
@@ -106,42 +130,21 @@ app.controller("ToolkitController", ['$rootScope', '$scope' , function($rootScop
 			cropX : this.cropX,
 			cropY : this.cropY,
 			cropWidth : this.cropWidth,
-			cropHeight : this.cropheight
+			cropHeight : this.cropHeight
 		});
 	};
 
 	this.change = function(infos){
-		//console.log('change!!');
-		if(infos.x !== null){
-
-		}
-		if(infos.y !== null){
-			
-		}
-		if(infos.width !== null){
-			
-		}
-		if(infos.height !== null){
-			
-		}
 		if(infos.cropX != null){
-			//console.log("set cropX");
-			//$('#cropX').val(infos.cropX);
 			this.cropX = infos.cropX;
 		}
 		if(infos.cropY != null){
-			//console.log("set cropY");
-			//$('#cropY').val(infos.cropY);
 			this.cropY = infos.cropY;
 		}
 		if(infos.cropWidth != null){
-			//console.log("set cropWidth");
-			//$('#cropWidth').val(infos.cropWidth);
 			this.cropWidth = infos.cropWidth;
 		}
 		if(infos.cropHeight != null){
-			//console.log("set cropHeight");
-			//$('#cropHeight').val(infos.cropHeight);
 			this.cropHeight = infos.cropHeight;
 		}
 		$scope.$apply();
@@ -169,8 +172,6 @@ app.controller("ToolkitController", ['$rootScope', '$scope' , function($rootScop
 			y : this.cropY,
 			gravity : "NorthWest"
 		};
-
-		console.log(options);
 
 		easyimg.rescrop(options).then(
 	  		function(image) {

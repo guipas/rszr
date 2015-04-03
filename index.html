@@ -8,73 +8,88 @@
 
 	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="bower_components/angularjs/angular.js"></script>
-	<script type="text/javascript" src="app/imageservice.js"></script>
-	<script type="text/javascript" src="app/comservice.js"></script>
 	<script type="text/javascript" src="app/app.js"></script>
 	<script type="text/javascript" src="app/toolkit.js"></script>
 	<script type="text/javascript" src="app/workbench.js"></script>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-10" id="workbench" ng-controller="WorkBenchController as workbench">
-				<div id="workbench-working-area" style="position: relative; !important">
-					<img id="workbench-img" style="">
-					<div id="workbench-mask"></div>
+			<div class="col-xs-10 col-md-10 col-hd-10" id="workbench" ng-controller="WorkBenchController as workbench">
+				<div class="row">
+					<div id="workbench-working-area" style="position: relative; !important">
+						<img id="workbench-img" style="">
+						<div id="workbench-mask"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="workbench-commands">
+						<ul class="nav nav-pills ">
+						  <li role="presentation" class=""><a href="#" ng-click="workbench.zoomIn()"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a></li>
+						  <li role="presentation"><a href="#" ng-click="workbench.zoomOut()"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></a></li>
+						  <li role="presentation"><a href="#"></a></li>
+						</ul>
+					</div>
 				</div>
 				
 			</div>
-			<div class="col-xs-2" id="toolkit" ng-controller="ToolkitController as toolkit">
-				<form novalidate>
+			<div class="col-xs-2 col-md-2 col-hd-10" id="toolkit" ng-controller="ToolkitController as toolkit">
+				<form novalidate class="form-horizontal">
+
+					<hr>
+
 					<div class="form-group">
-						<label for="file">File</label>
-						<input type="file" name="file" id="file" class="form-control" onchange="angular.element(this).scope().toolkit.loadImage(this)">
+						<label for="file" class="col-sm-3">File</label>
+						<div class="col-sm-9"><input type="file" name="file" id="file" class="form-control" onchange="angular.element(this).scope().toolkit.loadImage(this)"></div>
+					</div>
+
+					<hr>
+
+					<div class="form-group">
+						<label for="finalWidth" class="col-sm-3">Width</label>
+						<div class="col-sm-9"><input type="text" name="finalWidth" id="finalWidth" class="form-control " ng-model="toolkit.finalWidth" ng-change="toolkit.updateWidth()"></div>
 					</div>
 
 					<div class="form-group">
-						<label for="finalWidth">Width</label>
-						<input type="text" name="finalWidth" id="finalWidth" class="form-control" ng-model="toolkit.finalWidth" ng-change="toolkit.updateWidth()">
-					</div>
-
-					<div class="form-group">
-						<label for="finalHeight">Height</label>
-						<input type="text" name="finalHeight" id="finalHeight" class="form-control" ng-model="toolkit.finalHeight"  ng-change="toolkit.updateHeight()">
+						<label for="finalHeight" class="col-sm-3">Height</label>
+						<div class="col-sm-9"><input type="text" name="finalHeight" id="finalHeight" class="form-control" ng-model="toolkit.finalHeight"  ng-change="toolkit.updateHeight()"></div>
 					</div>
 					
 					<div class="form-group">
-						<label for="keepRatio">Keep Ratio</label>
-						<input type="checkbox" name="keepRatio" id="keepRatio" class="" ng-model="toolkit.keepRatio" ng-change="">
+						<label for="keepRatio" class="col-sm-3">Keep Ratio</label>
+						<div class="col-sm-9" style="height:20px;"><input type="checkbox" name="keepRatio" id="keepRatio" class="" ng-model="toolkit.keepRatio" ng-change="" style=""></div>
+					</div>
+
+					<hr>
+
+					<div class="form-group">
+						<label for="cropWidth" class="col-sm-3">Crop Width</label>
+						<div class="col-sm-9"><input type="text" name="cropWidth" id="cropWidth" class="form-control" ng-model="toolkit.cropWidth"  ng-change="toolkit.updateCropWidth()"></div>
 					</div>
 
 					<div class="form-group">
-						<label for="cropWidth">Crop Width</label>
-						<input type="text" name="cropWidth" id="cropWidth" class="form-control" ng-model="toolkit.cropWidth"  ng-change="">
+						<label for="cropHeight" class="col-sm-3">Crop Height</label>
+						<div class="col-sm-9"><input type="text" name="cropHeight" id="cropHeight" class="form-control" ng-model="toolkit.cropHeight"  ng-change="toolkit.updateCropHeight()"></div>
 					</div>
 
 					<div class="form-group">
-						<label for="cropHeight">Crop Height</label>
-						<input type="text" name="cropHeight" id="cropHeight" class="form-control" ng-model="toolkit.cropHeight"  ng-change="">
+						<label for="cropX" class="col-sm-3">Crop X</label>
+						<div class="col-sm-9"><input type="text" name="cropX" id="cropX" class="form-control" ng-model="toolkit.cropX"  ng-change="toolkit.updateCropX()"></div>
 					</div>
 
 					<div class="form-group">
-						<label for="cropX">Crop X</label>
-						<input type="text" name="cropX" id="cropX" class="form-control" ng-model="toolkit.cropX"  ng-change="">
+						<label for="cropY" class="col-sm-3">Crop Y</label>
+						<div class="col-sm-9"><input type="text" name="cropY" id="cropY" class="form-control" ng-model="toolkit.cropY"  ng-change="toolkit.updateCropY()"></div>
 					</div>
+
+					<hr>
 
 					<div class="form-group">
-						<label for="cropY">Crop Y</label>
-						<input type="text" name="cropY" id="cropY" class="form-control" ng-model="toolkit.cropY"  ng-change="">
+						<div class="col-sm-5 col-sm-offset-2 "><input class="btn-go btn btn-default" type="submit" ng-click="toolkit.go()" value="Go !"></div>
 					</div>
 
-					<div class="form-group">
-						<input type="submit" ng-click="toolkit.go()" value="Go !">
-					</div>
-
-
-					<div class="form-group">
-
-					</div>
 
 				</form>
 			</div>

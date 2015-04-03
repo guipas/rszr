@@ -4,10 +4,10 @@
   "window": {
     "title": "RSZR",
     "icon": "link.png",
-    "toolbar": true,
+    "toolbar": false,
     "frame": true,
-    "width": 800,
-    "height": 500,
+    "width": 1080,
+    "height": 760,
     "position": "center",
     "min_width": 600,
     "min_height": 300
