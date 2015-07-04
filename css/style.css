@@ -12,7 +12,7 @@ div#workbench {
 }
 
 div#workbench div#workbench-working-area {
-	height : 90%;
+	height : 100%;
 	width : 100%;
 	background: url("transp_bg.png");
 	overflow: scroll;
@@ -29,16 +29,32 @@ div#workbench div#workbench-working-area div#workbench-mask{
 
 
 div#workbench .workbench-commands {
-	/*position: absolute;*/
+	position: absolute;
 	left: 0;
-	bottom : 0;
+	bottom : 20px;
 	z-index: 2000;
 	/*background: #eee;*/
 	padding-top: 10px;
 	padding-bottom: 10px;
 	width: 100%;
+}
 
+div#workbench .workbench-commands ul.nav {
+	text-align: center;
+}
 
+div#workbench .workbench-commands ul.nav > li {
+	display: inline-block;
+	float: none;
+}
+
+div#workbench .workbench-commands ul.nav > li a {
+	background: #eee;
+}
+
+div#workbench .workbench-commands ul.nav > li a:hover,
+div#workbench .workbench-commands ul.nav > li a:focus {
+	background: #ddd;
 }
 
 div#toolkit {

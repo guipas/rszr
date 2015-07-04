@@ -24,16 +24,16 @@
 						<div id="workbench-mask"></div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="rowold">
 					<div class="workbench-commands">
 						<ul class="nav nav-pills ">
 						  <li role="presentation" class=""><a href="#" ng-click="workbench.zoomIn()"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a></li>
 						  <li role="presentation"><a href="#" ng-click="workbench.zoomOut()"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></a></li>
-						  <li role="presentation"><a href="#"></a></li>
+
 						</ul>
 					</div>
 				</div>
-				
+
 			</div>
 			<div class="col-xs-2 col-md-2 col-hd-10" id="toolkit" ng-controller="ToolkitController as toolkit">
 				<form novalidate class="form-horizontal">
@@ -56,7 +56,7 @@
 						<label for="finalHeight" class="col-sm-3">Height</label>
 						<div class="col-sm-9"><input type="text" name="finalHeight" id="finalHeight" class="form-control" ng-model="toolkit.finalHeight"  ng-change="toolkit.updateHeight()"></div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="keepRatio" class="col-sm-3">Keep Ratio</label>
 						<div class="col-sm-9" style="height:20px;"><input type="checkbox" name="keepRatio" id="keepRatio" class="" ng-model="toolkit.keepRatio" ng-change="" style=""></div>
@@ -87,7 +87,7 @@
 					<hr>
 
 					<div class="form-group">
-						<div class="col-sm-5 col-sm-offset-2 "><input class="btn-go btn btn-default" type="submit" ng-click="toolkit.go()" value="Go !"></div>
+						<div class="col-sm-10 col-sm-offset-1 text-center "><input class="btn-go btn btn-default" type="submit" ng-click="toolkit.go()" value="Go !"></div>
 					</div>
 
 
